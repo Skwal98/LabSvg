@@ -16,3 +16,76 @@
     100,100,
     150,100
 -->
+
+<svg [attr.height]="width" [attr.width]="width">
+  <style>
+        @keyframes change_fill {
+          0% {
+            fill: #49549e;
+          }
+          75% {
+            fill: #1bceb1;
+          }
+          100% {
+            fill: #28a04a;
+          }
+        }
+    <!--
+        .test {
+          animation: change_fill 1s, popup 2s;
+        }-->
+  </style>
+  <rect
+    x="0"
+    y="0"
+    [attr.height]="width"
+    [attr.width]="width"
+    fill="lightcoral"
+  />
+  <polygon style="fill: lime">
+    <animate
+      [attr.dur]="halfPart + 's'"
+      [attr.from]="'150,150 150,0 150,0'"
+      [attr.to]="'150,150 150,0 300,0'"
+      attributeName="points"
+      fill="freeze"
+    ></animate>
+    <animate
+      [attr.dur]="fullPart + 's'"
+      [attr.begin]="halfPart + 's'"
+      [attr.from]="'150,150 150,0 300,0 300, 0'"
+      [attr.to]="'150,150 150,0 300,0 300, 300'"
+      begin="0.01s"
+      attributeName="points"
+      fill="freeze"
+    ></animate>
+    <animate
+      [attr.dur]="fullPart + 's'"
+      [attr.begin]="halfPart + fullPart + 's'"
+      [attr.from]="'150,150 150,0 300,0 300,300 300, 300'"
+      [attr.to]="'150,150 150,0 300,0 300,300 0, 300'"
+      attributeName="points"
+      begin="0.01s"
+      fill="freeze"
+    ></animate>
+    <animate
+      [attr.dur]="fullPart + 's'"
+      [attr.begin]="halfPart + fullPart * 2 + 's'"
+      [attr.from]="'150,150 150,0 300,0 300,300 0,300 0,300'"
+      [attr.to]="'150,150 150,0 300,0 300,300 0,300 0,0'"
+      attributeName="points"
+      begin="0.01s"
+      fill="freeze"
+    ></animate>
+    <animate
+      [attr.dur]="halfPart + 's'"
+      [attr.begin]="halfPart + fullPart * 3 + 's'"
+      [attr.from]="'150,150 150,0 300,0 300,300 0,300 0,0 0,0'"
+      [attr.to]="'150,150 150,0 300,0 300,300 0,300 0,0 150,0'"
+      attributeName="points"
+      begin="0.01s"
+      fill="freeze"
+    ></animate>
+  </polygon>
+  Sorry, your browser does not support inline SVG.
+</svg>

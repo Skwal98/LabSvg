@@ -10,8 +10,8 @@ export class SquareLoaderComponent implements OnInit {
   @Input() width!: number;
 
   _timeout!: any;
-  _time = 4000;
-  _cadrInSec = 20;
+  _time = 1000;
+  _cadrInSec = 30;
 
   constructor() {}
 
@@ -83,8 +83,6 @@ export class SquareLoaderComponent implements OnInit {
   fullStep: number = 0;
   additionalPoints: Point[] = [];
   nextMove(): void {
-    console.log(this.stepCount / 4);
-
     this.initialPath();
 
     let stepCount = this.stepCount;
@@ -111,6 +109,9 @@ export class SquareLoaderComponent implements OnInit {
     this.fullStep += step;
 
     if (this.fullStep > this.perimeter) {
+      this.indexArrayStep++;
+      this.correctLastPoint();
+      this.initialPath();
       clearInterval(this._timeout);
     }
   }
@@ -119,8 +120,45 @@ export class SquareLoaderComponent implements OnInit {
   public pushDistinctPoint(indexArrayStep: number) {
     if (this.indexArrayStep !== indexArrayStep) {
       this.indexArrayStep = indexArrayStep;
+      this.correctLastPoint();
       this._currentPoint = this._currentPoint.copy();
       this.additionalPoints.push(this._currentPoint);
     }
+  }
+
+  public get lastAdditionalPoint(): Point {
+    return this.additionalPoints[this.additionalPoints.length - 1];
+  }
+
+  public correctLastPoint(): void {
+    if (this.indexArrayStep === 0) return;
+    if (this.indexArrayStep === 1) {
+      this.lastAdditionalPoint.x = this.pointsArray[this.indexArrayStep];
+    }
+    if (this.indexArrayStep === 2) {
+      this.lastAdditionalPoint.y = this.pointsArray[this.indexArrayStep];
+    }
+    if (this.indexArrayStep === 5) {
+      this.lastAdditionalPoint.x = this.pointsArray[this.indexArrayStep - 1];
+    }
+  }
+
+  //second version
+  public newTime = 1000;
+
+  public get getWidth(): string {
+    return this.width + '';
+  }
+
+  public get halfWidth(): string {
+    return this.width / 2 + '';
+  }
+
+  public get halfPart(): number {
+    return this.newTime / 8000;
+  }
+
+  public get fullPart(): number {
+    return this.halfPart * 2;
   }
 }
